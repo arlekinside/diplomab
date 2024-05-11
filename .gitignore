@@ -44,3 +44,4 @@ build/
 **/*.doc
 **/*.docx
 **/*.pptx
+.mvn
