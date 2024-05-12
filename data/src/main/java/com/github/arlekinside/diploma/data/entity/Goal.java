@@ -1,14 +1,13 @@
 package com.github.arlekinside.diploma.data.entity;
 
-import com.github.arlekinside.diploma.data.entity.finance.Money;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 
 @Entity
 @Table(indexes = {
         @Index(columnList = "user_id")
 })
-@Getter
+@Data
 public class Goal {
 
     @Id
