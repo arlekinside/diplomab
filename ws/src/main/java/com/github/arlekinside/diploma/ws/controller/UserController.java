@@ -1,5 +1,7 @@
 package com.github.arlekinside.diploma.ws.controller;
 
+import com.github.arlekinside.diploma.data.entity.User;
+import com.github.arlekinside.diploma.ws.config.security.user.UserDetailsAdapter;
 import com.github.arlekinside.diploma.ws.dto.UserDTO;
 import com.github.arlekinside.diploma.logic.exception.UserExistsException;
 import com.github.arlekinside.diploma.logic.service.UserService;
@@ -30,12 +32,9 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<UserDTO> getCurrentUser(Authentication authentication) {
-        var user = (UserDetails) authentication.getPrincipal();
+    public ResponseEntity<User> getCurrentUser(Authentication authentication) {
+        var user = ((UserDetailsAdapter) authentication.getPrincipal()).user();
 
-        var res = new UserDTO();
-        res.setUsername(user.getUsername());
-
-        return ResponseEntity.ok(res);
+        return ResponseEntity.ok(user);
     }
 }

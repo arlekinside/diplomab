@@ -1,7 +1,7 @@
 package com.github.arlekinside.diploma.ws.controller.mf;
 
 import com.github.arlekinside.diploma.data.entity.mf.MoneyFlow;
-import com.github.arlekinside.diploma.data.repo.MoneyFlowRepo;
+import com.github.arlekinside.diploma.data.repo.mf.MoneyFlowRepo;
 import com.github.arlekinside.diploma.logic.exception.NotFoundException;
 import com.github.arlekinside.diploma.ws.controller.AbstractCrudController;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,7 @@ import java.util.List;
 public abstract class MoneyFlowController<T extends MoneyFlow> extends AbstractCrudController<T> {
 
     protected final MoneyFlowRepo<T> moneyFlowRepo;
+    private Class<T> clazz;
 
     @Override
     public T create(Authentication auth, T t) {
@@ -27,7 +28,7 @@ public abstract class MoneyFlowController<T extends MoneyFlow> extends AbstractC
 
     @Override
     public T read(Authentication auth, Long id) {
-        return moneyFlowRepo.findByIdAndUser(id, getUser(auth));
+        return moneyFlowRepo.findByIdAndUser(id, getUser(auth)).orElseThrow(() -> new NotFoundException(id, null));
     }
 
     @Override

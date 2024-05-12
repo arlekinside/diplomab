@@ -1,7 +1,7 @@
 package com.github.arlekinside.diploma.ws.controller.mf;
 
 import com.github.arlekinside.diploma.data.entity.mf.Expense;
-import com.github.arlekinside.diploma.data.repo.MoneyFlowRepo;
+import com.github.arlekinside.diploma.data.repo.mf.ExpenseRepo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExpenseController extends MoneyFlowController<Expense> {
 
 
-    public ExpenseController(MoneyFlowRepo<Expense> moneyFlowRepo) {
+    public ExpenseController(ExpenseRepo moneyFlowRepo) {
         super(moneyFlowRepo);
     }
 

@@ -1,5 +1,6 @@
 package com.github.arlekinside.diploma.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 )
 @Data
 @NoArgsConstructor
-public class Saving {
+public class Saving implements UserAware {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +28,11 @@ public class Saving {
     private Money money;
 
     @Embedded
+    @JsonIgnore
     private TimeData timeData;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     @ManyToMany
@@ -38,5 +41,6 @@ public class Saving {
             inverseJoinColumns = @JoinColumn(name = "user_id"),
             indexes = @Index(columnList = "user_id")
     )
+    @JsonIgnore
     private List<User> members;
 }

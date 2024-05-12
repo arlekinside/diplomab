@@ -1,5 +1,6 @@
 package com.github.arlekinside.diploma.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,7 +9,7 @@ import lombok.Data;
         @Index(columnList = "user_id")
 })
 @Data
-public class Goal {
+public class Goal implements UserAware {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +25,11 @@ public class Goal {
     private byte recurringIncomePercent;
 
     @Embedded
+    @JsonIgnore
     private TimeData timeData;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 }

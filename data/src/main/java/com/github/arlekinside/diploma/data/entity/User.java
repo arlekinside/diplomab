@@ -1,5 +1,6 @@
 package com.github.arlekinside.diploma.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.arlekinside.diploma.data.SecurityRoles;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +14,6 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString
-@EqualsAndHashCode
 public class User {
 
     @Builder
@@ -32,22 +32,24 @@ public class User {
 
     @Column(nullable = false)
     @ToString.Exclude
+    @JsonIgnore
     private String password;
 
     @Embedded
+    @JsonIgnore
     private TimeData timeData;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private SecurityRoles role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Saving> savings;
 
-    @ManyToMany(mappedBy = "members", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
     private List<Saving> savingList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Goal> goals = new ArrayList<>();
 
     @Embedded

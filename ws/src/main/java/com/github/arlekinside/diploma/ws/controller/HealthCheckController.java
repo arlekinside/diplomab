@@ -26,7 +26,7 @@ public class HealthCheckController {
     @GetMapping
     public ResponseEntity<String> getHealth() {
         var now = Instant.now();
-        var admin = userRepo.findByUsername(adminUsername);
+        var admin = userRepo.findByUsername(adminUsername).orElse(null);
         var delay = Duration.between(now, Instant.now()).toMillis();
         if (delay > 100) {
             return ResponseEntity.internalServerError().build();

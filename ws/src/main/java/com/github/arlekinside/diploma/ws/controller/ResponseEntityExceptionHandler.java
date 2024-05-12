@@ -13,9 +13,20 @@ public class ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<NotFoundDTO> handleNotFoundException(NotFoundException ex) {
+        var id = ex.getId();
+        var clazz = ex.getClazz();
+        var builder = NotFoundDTO.builder();
+
+        if (id != null) {
+            builder.id(id);
+        }
+        if (clazz != null) {
+            builder.type(clazz.getSimpleName());
+        }
+
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body(new NotFoundDTO(ex.getId(), ex.getClazz().getSimpleName()));
+                .body(builder.build());
     }
 
     @ExceptionHandler(ForbiddenException.class)

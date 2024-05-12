@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User register(String username, String password, SecurityRoles securityRole) throws UserExistsException {
-        if (userRepo.findByUsername(username) != null) {
+        if (userRepo.findByUsername(username).isPresent()) {
             throw new UserExistsException();
         }
 
