@@ -1,12 +1,12 @@
 package com.github.arlekinside.diploma.data.repo;
 
-import com.github.arlekinside.diploma.data.entity.SUser;
+import com.github.arlekinside.diploma.data.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SUserRepo extends JpaRepository<SUser, Long> {
+public interface UserRepo extends JpaRepository<User, Long> {
 
-    SUser findByUsername(String username);
+    User findByUsername(String username);
 
 }

@@ -1,4 +1,4 @@
-package com.github.arlekinside.diploma.data.entity;
+package com.github.arlekinside.diploma.data;
 
 public enum SecurityRoles {
 

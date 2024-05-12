@@ -1,6 +1,6 @@
 package com.github.arlekinside.diploma.ws.app.config.security;
 
-import com.github.arlekinside.diploma.data.entity.SecurityRoles;
+import com.github.arlekinside.diploma.data.SecurityRoles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

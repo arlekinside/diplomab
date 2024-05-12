@@ -1,6 +1,6 @@
 package com.github.arlekinside.diploma.ws.app.controller;
 
-import com.github.arlekinside.diploma.data.repo.SUserRepo;
+import com.github.arlekinside.diploma.data.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,10 @@ import java.time.Instant;
 @RequestMapping("/health")
 public class HealthCheckController {
 
-    private final SUserRepo userRepo;
+    private final UserRepo userRepo;
     private final String adminUsername;
 
-    public HealthCheckController(SUserRepo userRepo,
+    public HealthCheckController(UserRepo userRepo,
                                  @Value("${app.users.admin.username}") String adminUsername) {
         this.userRepo = userRepo;
         this.adminUsername = adminUsername;

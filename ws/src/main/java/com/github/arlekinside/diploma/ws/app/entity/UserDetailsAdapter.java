@@ -1,7 +1,7 @@
 package com.github.arlekinside.diploma.ws.app.entity;
 
-import com.github.arlekinside.diploma.data.entity.SUser;
-import com.github.arlekinside.diploma.data.entity.SecurityRoles;
+import com.github.arlekinside.diploma.data.entity.User;
+import com.github.arlekinside.diploma.data.SecurityRoles;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserDetailsAdapter implements UserDetails {
 
-    private final SUser user;
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
