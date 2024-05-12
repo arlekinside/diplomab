@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/saving")
+@RequestMapping("/savings")
 @RequiredArgsConstructor
 public class SavingController extends AbstractCrudController<Saving>{
 

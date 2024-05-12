@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/mf/recurring/expense")
+@RequestMapping("/mf/recurring/expenses")
 public class RecurringExpenseController extends MoneyFlowController<RecurringExpense> {
 
 

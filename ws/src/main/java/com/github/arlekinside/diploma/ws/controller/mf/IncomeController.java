@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/mf/income")
+@RequestMapping("/mf/incomes")
 public class IncomeController extends MoneyFlowController<Income> {
 
     public IncomeController(IncomeRepo moneyFlowRepo) {

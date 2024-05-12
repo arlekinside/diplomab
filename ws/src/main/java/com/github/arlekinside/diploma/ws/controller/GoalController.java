@@ -15,7 +15,7 @@ import java.util.List;
 import static com.github.arlekinside.diploma.ws.Utils.nvl;
 
 @RestController
-@RequestMapping("/goal")
+@RequestMapping("/goals")
 @RequiredArgsConstructor
 public class GoalController extends AbstractCrudController<Goal>{
 
