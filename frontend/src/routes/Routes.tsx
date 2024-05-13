@@ -3,11 +3,14 @@ import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import VerifyPage from "../pages/VerifyPage";
+import DashboardPage from "../pages/DashboardPage";
 
 const Routes = {
-    '/' : () => <VerifyPage />,
+    '/' : () => <HomePage />,
+    '/dashboard': () => <DashboardPage />,
+    // '/dashboard' : () => <DashboardPage />,
     '/admin' : () => <AdminPage />,
-    '/home' : () => <HomePage />,
+    // '/home' : () => <HomePage />,
     '/login' : () => <LoginPage />,
     '/register' : () => <RegisterPage />
 }

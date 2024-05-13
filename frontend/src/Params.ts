@@ -1,12 +1,30 @@
 const Params = {
-    urls:{
+    urls: {
         backend: 'http://localhost:8080'
     },
+    path: {
+        logout: '/logout',
+        register: '/register',
+        login: '/login',
+        mf: {
+            n: '/mff',
+
+        },
+        dashboard: '/dashboard'
+    },
     colors: {
-        main : '#2c2c2c',
-        secondary : '#b3b3b3',
-        thirdly : '#000000',
-        background: '#fdf1dc'
+        primary: '#16348C', //FFD700 //16348C
+        secondary: '#E16941',
+        thirdly: '#7894EA',
+        background: '#ffffff',
+        darkText: '#000000',
+        lightText: '#ffffff',
+    },
+    labels: {
+        appName: 'MFT'
+    },
+    cookie: {
+        uname: 'un'
     }
 }
 

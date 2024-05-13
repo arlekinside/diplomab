@@ -8,13 +8,13 @@ import Params from "./Params";
 const theme = createTheme({
     palette: {
         primary: {
-            main: Params.colors.main
+            main: Params.colors.primary
         },
         secondary: {
             main: Params.colors.secondary
         },
         text: {
-            primary: Params.colors.main,
+            primary: Params.colors.primary,
             secondary: Params.colors.secondary,
         }
     }
