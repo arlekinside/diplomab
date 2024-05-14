@@ -22,7 +22,6 @@
             <groupId>com.github.arlekinside.diploma</groupId>
             <artifactId>data</artifactId>
             <version>1.0</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>

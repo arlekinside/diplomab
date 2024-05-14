@@ -37,13 +37,13 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--&lt;!&ndash;                <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;                <artifactId>spring-boot-maven-plugin</artifactId>&ndash;&gt;-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>

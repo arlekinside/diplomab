@@ -24,8 +24,9 @@ public class Saving implements UserAware {
 
     private String name;
 
-    @Setter
     private Money money;
+
+    private int monthlyPercent;
 
     @Embedded
     @JsonIgnore

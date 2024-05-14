@@ -9,5 +9,10 @@
       "name": "app.users.admin.password",
       "type": "java.lang.String",
       "description": "Description for app.users.admin.password."
+    },
+    {
+      "name": "app.ui.url",
+      "type": "java.lang.String",
+      "description": "Description for app.ui.url."
     }
   ] }

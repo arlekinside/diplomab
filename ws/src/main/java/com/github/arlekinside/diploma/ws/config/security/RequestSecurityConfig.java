@@ -1,5 +1,6 @@
 package com.github.arlekinside.diploma.ws.config.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,6 +15,13 @@ import static com.github.arlekinside.diploma.data.SecurityRoles.*;
 @Configuration
 public class RequestSecurityConfig {
 
+    private final String uiUrl;
+
+    public RequestSecurityConfig(@Value("${app.ui.url}") String uiUrl) {
+        this.uiUrl = uiUrl;
+    }
+
+
     @Bean
     protected SecurityFilterChain requestSecurityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -26,17 +34,17 @@ public class RequestSecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(
                                 HttpMethod.GET,
-                                "/", "/home", "/history", "/users",
+                                "/", "/home", "/history", "/users", "/app/data",
                                 "/mf/**", "/goal/**", "/saving/**"
                         ).hasAnyRole(USER.name(), ADMIN.name())
                 )
-                .formLogin(login -> login.loginPage("/login")
+                .formLogin(login -> login.loginPage("%s/login".formatted(uiUrl))
                         .loginProcessingUrl("/users/login")
-                        .defaultSuccessUrl("/")
-                        .failureUrl("/login?error=true")
+                        .defaultSuccessUrl(uiUrl)
+                        .failureUrl("%s/login?error=true".formatted(uiUrl))
                 )
                 .logout(logout -> logout.logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl(uiUrl)
                 )
                 .authorizeHttpRequests(
                         auth -> auth.anyRequest().permitAll()
