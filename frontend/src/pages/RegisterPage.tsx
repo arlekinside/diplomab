@@ -1,8 +1,10 @@
 import {Button, TextField} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Title from "../components/text/Title";
 import Params from "../Params";
 import Page from "../components/layout/Page";
+import {useNotification} from "../components/NotificationProvider";
+import {useCookies} from "react-cookie";
 
 interface FormInput {
     username: string;
@@ -26,6 +28,8 @@ function RegisterPage() {
     const [unameHelp, setUnameHelp] = useState<string | undefined>();
     const [passHelp, setPassHelp] = useState<string | undefined>();
     const [vPassHelp, setVPassHelp] = useState<string | undefined>();
+    const [cookies, setCookies, removeCookies] = useCookies();
+    const {showNotification} = useNotification();
 
     const resetErrors = () => {
         setUnameHelp(undefined);
@@ -69,7 +73,7 @@ function RegisterPage() {
             window.location.pathname = '/login'
         }).catch(e => {
             console.error('Error while fetching', e);
-            alert('Error connecting to server');
+            showNotification('Error connecting to server');
         })
     };
 
@@ -80,6 +84,10 @@ function RegisterPage() {
             [name]: value,
         });
     };
+
+    useEffect(() => {
+        removeCookies(Params.cookies.uname);
+    }, []);
 
     return (
         <Page width='50%' unauthorized>

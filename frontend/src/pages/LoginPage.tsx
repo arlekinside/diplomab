@@ -1,5 +1,5 @@
 import {Button, TextField} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Title from "../components/text/Title";
 import Page from "../components/layout/Page";
 import Params from "../Params";
@@ -59,6 +59,10 @@ function LoginPage() {
             [name]: value,
         });
     };
+
+    useEffect(() => {
+        removeCookies(Params.cookies.uname);
+    }, []);
 
     return (
         <Page width='50%' unauthorized>

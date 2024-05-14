@@ -6,7 +6,7 @@ import React from "react";
 function Page(props: { children: any, unauthorized?: boolean, width?: string}) {
 
     return (
-        <div style={{display: "flex", flexDirection: "column", justifyContent: 'space-between', alignItems: 'center'}}>
+        <div style={{display: "flex", flexDirection: "column", justifyContent: 'space-between', alignItems: 'center', minWidth: '1000px'}}>
             {props.unauthorized ?
                 <h1 style={{color: Params.colors.lightText, margin: 0, fontVariant: '', alignSelf: 'flex-start', paddingLeft: '20px'}}>{Params.labels.appName}</h1>:
                 <Header/>

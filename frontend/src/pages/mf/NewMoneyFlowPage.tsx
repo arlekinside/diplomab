@@ -34,8 +34,9 @@ function NewMoneyFlowPage() {
 
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
         let dto : MoneyFlowDTO = {
+            name: data.name,
             money: {
-                amount: data.amount,
+                amount: Math.abs(data.amount),
                 currency: 'USD'
             },
             cycle: data.cycle
@@ -46,14 +47,14 @@ function NewMoneyFlowPage() {
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'
             },
+            redirect: 'error',
             body: JSON.stringify(dto)
         }).then(res => {
             if (!res.ok) {
-                showNotification(`Got unexpected response ${res.status} from server`);
+                showNotification(`Got error response ${res.status} from server`, 'warning');
                 return;
             }
             showNotification('MoneyFlow created', 'success')
-            return;
         }).catch(e => {
             showNotification('Got an unexpected error while creating MoneyFlow');
         })
