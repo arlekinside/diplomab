@@ -1,7 +1,5 @@
 import {Button, TextField} from "@mui/material";
 import {useState} from "react";
-import Content from "../components/layout/Content";
-import Label from "../components/text/Label";
 import Title from "../components/text/Title";
 import Params from "../Params";
 import Page from "../components/layout/Page";
@@ -57,7 +55,7 @@ function RegisterPage() {
             password: pass
         }
 
-        fetch(`/users/register`, {
+        fetch(Params.fetch.register, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'

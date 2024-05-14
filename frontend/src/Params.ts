@@ -1,14 +1,34 @@
+const backend = 'http://localhost:8080';
+
 const Params = {
-    urls: {
-        backend: 'http://localhost:8080'
+    fetch: {
+        backend: backend,
+        login: `${backend}/users/login`,
+        register: `${backend}/users/register`,
+        user: {
+            current: `${backend}/users`
+        },
+        mf: {
+            incomes: `${backend}/mf/incomes`,
+            expenses: `${backend}/mf/expenses`,
+            recurring: {
+                incomes: `${backend}/mf/recurring/incomes`,
+                expenses: `${backend}/mf/recurring/expenses`,
+            }
+        }
     },
     path: {
-        logout: '/logout',
+        logout: `${backend}/logout`,
         register: '/register',
         login: '/login',
         mf: {
-            n: '/mff',
-
+            n: '/mf/u/new',
+            one: '/mf/u/one',
+            recurring: '/mf/u/recurring'
+        },
+        savings: {
+            n: '/savings/u/new',
+            page: '/savings/u'
         },
         dashboard: '/dashboard'
     },
@@ -23,9 +43,10 @@ const Params = {
     labels: {
         appName: 'MFT'
     },
-    cookie: {
+    cookies: {
         uname: 'un'
     }
 }
+
 
 export default Params;

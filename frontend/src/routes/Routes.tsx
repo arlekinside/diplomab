@@ -1,18 +1,22 @@
-import AdminPage from "../pages/AdminPage";
-import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
-import VerifyPage from "../pages/VerifyPage";
 import DashboardPage from "../pages/DashboardPage";
+import NewMoneyFlowPage from "../pages/mf/NewMoneyFlowPage";
+import OneTimeMoneyFlowPage from "../pages/mf/OneTimeMoneyFlowPage";
+import RecurringMoneyFlowPage from "../pages/mf/RecurringMoneyFlowPage";
+import NewSavingPage from "../pages/saving/NewSavingPage";
+import SavingPage from "../pages/saving/SavingPage";
 
 const Routes = {
-    '/' : () => <HomePage />,
+    '/' : () => <DashboardPage />,
     '/dashboard': () => <DashboardPage />,
-    // '/dashboard' : () => <DashboardPage />,
-    '/admin' : () => <AdminPage />,
-    // '/home' : () => <HomePage />,
     '/login' : () => <LoginPage />,
-    '/register' : () => <RegisterPage />
+    '/register' : () => <RegisterPage />,
+    '/mf/u/new' : () => <NewMoneyFlowPage />,
+    '/mf/u/one' : () => <OneTimeMoneyFlowPage />,
+    '/mf/u/recurring' : () => <RecurringMoneyFlowPage />,
+    '/savings/u/new' : () => <NewSavingPage />,
+    '/savings/u' : () => <SavingPage />
 }
 
 export default Routes;

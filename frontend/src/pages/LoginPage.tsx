@@ -3,6 +3,9 @@ import {useState} from "react";
 import Title from "../components/text/Title";
 import Page from "../components/layout/Page";
 import Params from "../Params";
+import {useNotification} from "../components/NotificationProvider";
+import {useCookies} from "react-cookie";
+import {Base64} from "js-base64";
 
 interface FormInput {
     username: string;
@@ -12,6 +15,8 @@ interface FormInput {
 function LoginPage() {
 
     const params = new URLSearchParams(window.location.search);
+    const {showNotification} = useNotification();
+    const [cookies, setCookies, removeCookies] = useCookies();
 
     const [formInput, setFormInput] = useState<FormInput>({
         username: '',
@@ -31,15 +36,19 @@ function LoginPage() {
         const username = formInput.username;
         const pass = formInput.password;
 
-        fetch(`/users/login?username=${username}&password=${pass}`, {
+        fetch(`${Params.fetch.login}?username=${username}&password=${pass}`, {
             method: 'POST'
         }).then(res => {
-            if (res.redirected) {
-                window.location.href = res.url;
+            if (!res.redirected) {
+                showNotification('Invalid credentials');
+                return;
             }
+
+            setCookies(Params.cookies.uname, Base64.encode(username));
+            window.location.href = res.url;
         }).catch(e => {
-            console.error('Error while fetching', e);
-            alert('Error connecting to server');
+            showNotification('Error connecting to server')
+            console.error('[Login] Error while fetching', e);
         })
     };
 

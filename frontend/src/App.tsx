@@ -4,6 +4,8 @@ import {useRoutes} from "hookrouter/dist/routes";
 import Routes from "./routes/Routes";
 import {createTheme, ThemeProvider} from "@mui/material";
 import Params from "./Params";
+import NotFoundPage from "./pages/NotFoundPage";
+import NotificationProvider from "./components/NotificationProvider";
 
 const theme = createTheme({
     palette: {
@@ -24,7 +26,9 @@ function App() {
     const route = useRoutes(Routes);
     return (
         <ThemeProvider theme={theme}>
-            {route}
+            <NotificationProvider>
+                {route || <NotFoundPage/>}
+            </NotificationProvider>
         </ThemeProvider>
     )
 }
