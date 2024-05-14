@@ -23,7 +23,10 @@ public abstract class MoneyFlowController<T extends MoneyFlow> extends AbstractC
 
     @Override
     public List<T> readAll(Authentication auth) {
-        return moneyFlowRepo.findAllByUser(getUser(auth));
+        return moneyFlowRepo.findAllByUser(getUser(auth))
+                .stream()
+                .sorted((m1, m2) -> m1.getTimeData().getDateCreated().isAfter(m2.getTimeData().getDateCreated()) ? -1 : 1)
+                .toList();
     }
 
     @Override

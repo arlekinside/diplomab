@@ -6,7 +6,13 @@ import com.github.arlekinside.diploma.data.entity.TimeData;
 import com.github.arlekinside.diploma.data.entity.User;
 import com.github.arlekinside.diploma.data.entity.UserAware;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+
+import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(indexes = {
@@ -22,7 +28,12 @@ public abstract class MoneyFlow implements UserAware {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Pattern(regexp = "[0-9\\w]+", message = "Name should contain only letters and numbers")
+    private String name;
+
     @Embedded
+    @Valid
+    @NotNull(message = "Money is obligatory")
     private Money money;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -33,4 +44,13 @@ public abstract class MoneyFlow implements UserAware {
     @Embedded
     @JsonIgnore
     private TimeData timeData;
+
+    @Transient
+    private String dateCreated;
+
+    @PostLoad
+    private void postLoad() {
+        this.dateCreated = timeData.getDateCreated().format(DateTimeFormatter.ofPattern("MMM dd"));
+    }
+
 }
