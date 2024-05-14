@@ -12,11 +12,11 @@ const Routes = {
     '/dashboard': () => <DashboardPage />,
     '/login' : () => <LoginPage />,
     '/register' : () => <RegisterPage />,
-    '/mf/u/new' : () => <NewMoneyFlowPage />,
-    '/mf/u/one' : () => <OneTimeMoneyFlowPage />,
-    '/mf/u/recurring' : () => <RecurringMoneyFlowPage />,
-    '/savings/u/new' : () => <NewSavingPage />,
-    '/savings/u' : () => <SavingPage />
+    '/mfun' : () => <NewMoneyFlowPage />,
+    '/mfuo' : () => <OneTimeMoneyFlowPage />,
+    '/mfur' : () => <RecurringMoneyFlowPage />,
+    '/sun' : () => <NewSavingPage />,
+    '/su' : () => <SavingPage />
 }
 
 export default Routes;

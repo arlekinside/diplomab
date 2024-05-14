@@ -4,12 +4,8 @@ import {Button, Checkbox, FormControlLabel, Radio, RadioGroup, TextField} from "
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useNotification} from "../../components/NotificationProvider";
 import Params from "../../Params";
-
-enum RecurringCycleEnum {
-    NONE = 'NONE',
-    DAILY = 'DAILY',
-    MONTHLY = 'MONTHLY'
-}
+import {RecurringCycleEnum} from "../../dto/RecurringCycleEnum";
+import MoneyFlowDTO from "../../dto/MoneyFlowDTO";
 
 interface IFormInput {
     name: string
@@ -37,20 +33,27 @@ function NewMoneyFlowPage() {
     }
 
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
+        let dto : MoneyFlowDTO = {
+            money: {
+                amount: data.amount,
+                currency: 'USD'
+            },
+            cycle: data.cycle
+        }
+
         fetch(getUrl(data.amount, data.cycle), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(dto)
         }).then(res => {
             if (!res.ok) {
                 showNotification(`Got unexpected response ${res.status} from server`);
                 return;
             }
             showNotification('MoneyFlow created', 'success')
-            return res.json();
-        }).then(json => {
+            return;
         }).catch(e => {
             showNotification('Got an unexpected error while creating MoneyFlow');
         })

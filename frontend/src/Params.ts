@@ -22,13 +22,13 @@ const Params = {
         register: '/register',
         login: '/login',
         mf: {
-            n: '/mf/u/new',
-            one: '/mf/u/one',
-            recurring: '/mf/u/recurring'
+            n: '/mfun',
+            one: '/mfuo',
+            recurring: '/mfur'
         },
         savings: {
-            n: '/savings/u/new',
-            page: '/savings/u'
+            n: '/sun',
+            page: '/su'
         },
         dashboard: '/dashboard'
     },
