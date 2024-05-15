@@ -19,6 +19,7 @@ public interface CrudController<T> {
     T read(Authentication auth, @PathVariable Long id);
 
     @PutMapping("/{id}")
+    @Transactional
     T update(Authentication auth, @PathVariable Long id, @Valid @RequestBody T t);
 
     @DeleteMapping("/{id}")

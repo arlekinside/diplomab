@@ -44,15 +44,11 @@ public class User {
     private SecurityRoles role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<Saving> savings;
-
-//    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
-//    private List<Saving> savingList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<Goal> goals = new ArrayList<>();
+    @ToString.Exclude
+    private List<Saving> savings = new ArrayList<>();
 
     @Embedded
+    @ToString.Exclude
     private MoneyData moneyData = new MoneyData();
 
     @Override

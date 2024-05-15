@@ -47,7 +47,7 @@ public class RequestSecurityConfig {
                 )
                 .authorizeHttpRequests( //API
                         auth -> auth.requestMatchers(
-                                "/mf/**", "/goal/**", "/saving/**"
+                                "/mf/**", "/savings/**"
                         ).hasAnyRole(USER.name(), ADMIN.name())
                 )
                 .formLogin(login -> login.loginPage("%s/login".formatted(uiUrl))

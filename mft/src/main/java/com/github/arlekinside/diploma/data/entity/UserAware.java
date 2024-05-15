@@ -4,4 +4,5 @@ public interface UserAware {
 
     User getUser();
 
+    void setUser(User user);
 }
