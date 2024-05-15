@@ -100,7 +100,7 @@ function NewMoneyFlowPage() {
                         rules={{
                             pattern: {
                                 value: /(-|)[1-9]+/,
-                                message: "Amount should be a valid not 0 number"
+                                message: "Amount should be a valid, not 0 number"
                             }
                         }}
                         render={({field}) =>

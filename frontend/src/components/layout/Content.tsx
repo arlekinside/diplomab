@@ -6,11 +6,11 @@ function Content(props: { children: any, width?: string }) {
     return (
         <div style={{
             width: width, margin: '1vh 1px 1vh 1px', padding: '10px', boxSizing: 'border-box',
-            backgroundColor: Params.colors.background, borderRadius: "30px"
+            backgroundColor: Params.colors.background, borderRadius: "30px", minHeight: '50vh'
         }}>
             {props.children}
         </div>
     );
 }
-//, marginTop: "2vh", marginBottom: "2vh",
+
 export default Content;

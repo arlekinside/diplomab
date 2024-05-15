@@ -1,14 +1,16 @@
 import Page from "../../components/layout/Page";
 import Label from "../../components/text/Label";
-import {Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useNotification} from "../../components/NotificationProvider";
+import SavingDTO from "../../dto/SavingDTO";
+import Params from "../../Params";
 
 interface IFormInput {
     name: string
-    amount: number
+    initial?: number
+    target: number
     monthlyPercent: number
-
 }
 
 function NewSavingPage() {
@@ -17,16 +19,33 @@ function NewSavingPage() {
     const {showNotification} = useNotification();
 
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        fetch('/savings', {
-            method: 'POST'
+        let dto : SavingDTO = {
+            name: data.name,
+            money: {
+                amount: Math.abs(data.initial || 0),
+                currency: 'USD'
+            },
+            target: {
+                amount: Math.abs(data.target),
+                currency: 'USD'
+            },
+            monthlyPercent: data.monthlyPercent
+        }
+
+        fetch(Params.fetch.savings, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            redirect: 'error',
+            body: JSON.stringify(dto)
         }).then(res => {
             if (!res.ok) {
-                showNotification(`Got unexpected response ${res.status} from server`);
+                showNotification(`Got error response ${res.status} from server`, 'warning');
                 return;
             }
-            showNotification('Saving created', 'success')
-            return res.json();
-        }).then(json => {
+            showNotification('Saving created. Moving to savings page', 'success')
+            setTimeout(() => window.location.href = Params.path.savings.page, 3000);
         }).catch(e => {
             showNotification('Got an unexpected error while creating Saving');
         })
@@ -67,30 +86,48 @@ function NewSavingPage() {
                     />
                     <Controller
                         control={control}
-                        name="amount"
+                        name="initial"
                         rules={{
                             min: {
-                                value: 1,
-                                message: "Initial amount should be greater than 0"
+                                value: 0,
+                                message: "Initial amount should be >=0"
                             }
                         }}
                         render={({field}) =>
                             <TextField {...field} label="Initial amount" variant={"outlined"} margin="normal" type={"number"}
-                                       helperText={errors?.amount?.message} required/>
+                                       helperText={errors?.initial?.message}/>
+                        }
+                    />
+                    <Controller
+                        control={control}
+                        name="target"
+                        rules={{
+                            min: {
+                                value: 1,
+                                message: "Target amount should be greater than 0"
+                            }
+                        }}
+                        render={({field}) =>
+                            <TextField {...field} label="Target amount" variant={"outlined"} margin="normal" type={"number"}
+                                       helperText={errors?.initial?.message} required/>
                         }
                     />
                     <Controller
                         control={control}
                         name="monthlyPercent"
                         rules={{
-                            pattern: {
-                                value: /(-|)[1-9]+/,
-                                message: "Amount should be a valid not 0 number"
+                            min: {
+                                value: 1,
+                                message: "Value cannot be lover than 1%"
+                            },
+                            max: {
+                                value: 100,
+                                message: "Value cannot exceed 100%"
                             }
                         }}
                         render={({field}) =>
-                            <TextField {...field} label="Amount" variant={"outlined"} margin="normal" type={"number"}
-                                       helperText={errors?.amount?.message} required/>
+                            <TextField {...field} label="Monthly percent" variant={"outlined"} margin="normal" type={"number"}
+                                       helperText={errors?.monthlyPercent?.message} required/>
                         }
                     />
                     <Button variant="contained" color="primary" type={"submit"} size={"large"}>Submit</Button>
