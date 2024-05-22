@@ -1,6 +1,6 @@
 package com.github.arlekinside.diploma.ws.dto;
 
-import com.github.arlekinside.diploma.data.SchedulerType;
+import com.github.arlekinside.diploma.data.enums.SchedulerType;
 import lombok.Data;
 
 @Data

@@ -64,10 +64,10 @@ public class AccountingServiceImpl implements AccountingService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void handleSavingDeposit(Saving saving) {
+    public boolean handleSavingDeposit(Saving saving) {
         if (saving.getFinished() == Boolean.TRUE) {
             log.info("Saving#{} is finished, skipping...", saving.getId());
-            return;
+            return false;
         }
         long depositAmount;
 
@@ -76,14 +76,14 @@ public class AccountingServiceImpl implements AccountingService {
         var budget = user.getBudget();
 
         var budgetAmount = budget.getMoney().getAmount();
-        depositAmount = Math.min(
-                budget.getMoney().getAmount() * (percent / 100), // Calculated amount
+        depositAmount = (long) Math.min(
+                budget.getMoney().getAmount() * (percent / 100.0), // Calculated amount
                 saving.getTarget().getAmount() - saving.getMoney().getAmount() // Amount left
         );
 
         if (budgetAmount < depositAmount) {
             log.info("Couldn't take money from budget#{} for saving#{} as there's not enough money", budget.getId(), saving.getId());
-            return;
+            return false;
         }
 
         saving.getMoney().increment(depositAmount);
@@ -96,6 +96,7 @@ public class AccountingServiceImpl implements AccountingService {
 
         updateBudget(-depositAmount, budget, user);
         savingRepo.save(saving);
+        return true;
     }
 
     @Override
@@ -128,9 +129,8 @@ public class AccountingServiceImpl implements AccountingService {
     }
 
     @Override
-    public long handleProcessSavings(List<Saving> savingList) {
-        savingList.forEach(this::handleSavingDeposit);
-        return savingList.size();
+    public int handleProcessSavings(List<Saving> savingList) {
+        return savingList.stream().mapToInt(s -> this.handleSavingDeposit(s) ? 1 : 0).sum();
     }
 
     @Override

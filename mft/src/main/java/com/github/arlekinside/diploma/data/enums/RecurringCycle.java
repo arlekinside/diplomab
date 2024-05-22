@@ -1,4 +1,4 @@
-package com.github.arlekinside.diploma.data;
+package com.github.arlekinside.diploma.data.enums;
 
 public enum RecurringCycle {
 

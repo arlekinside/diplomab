@@ -78,10 +78,11 @@ function RecurringMoneyFlowPage() {
                     flexDirection: 'column',
                     justifyContent: 'flex-start',
                     margin: '0 5px 0 10px',
+                    width: "35%",
                     minWidth: '500px'
                 }}>
                     <ChipLabel>Incomes</ChipLabel>
-                    <Table sx={{width: "40%", minWidth: "300px", margin: "30px"}}>
+                    <Table sx={{width: "90%", minWidth: "300px", margin: "30px"}}>
                         <TableHead>
                             <TableRow>
                                 <TableCell>Name</TableCell>
@@ -113,10 +114,11 @@ function RecurringMoneyFlowPage() {
                     flexDirection: 'column',
                     justifyContent: 'flex-start',
                     margin: '0 5px 0 10px',
+                    width: '35%',
                     minWidth: '500px'
                 }}>
                     <ChipLabel>Expenses</ChipLabel>
-                    <Table sx={{width: "40%", minWidth: "300px", margin: "30px"}}>
+                    <Table sx={{width: "90%", minWidth: "300px", margin: "30px"}}>
                         <TableHead>
                             <TableRow>
                                 <TableCell>Name</TableCell>

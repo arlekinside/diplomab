@@ -1,7 +1,7 @@
 package com.github.arlekinside.diploma.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.arlekinside.diploma.data.SecurityRoles;
+import com.github.arlekinside.diploma.data.enums.SecurityRoles;
 import jakarta.persistence.*;
 import lombok.*;
 

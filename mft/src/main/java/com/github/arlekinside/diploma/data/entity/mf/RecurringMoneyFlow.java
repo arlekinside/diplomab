@@ -1,6 +1,6 @@
 package com.github.arlekinside.diploma.data.entity.mf;
 
-import com.github.arlekinside.diploma.data.RecurringCycle;
+import com.github.arlekinside.diploma.data.enums.RecurringCycle;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

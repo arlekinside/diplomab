@@ -1,6 +1,6 @@
 package com.github.arlekinside.diploma.scheduler;
 
-import com.github.arlekinside.diploma.data.SchedulerType;
+import com.github.arlekinside.diploma.data.enums.SchedulerType;
 
 public interface Job {
 

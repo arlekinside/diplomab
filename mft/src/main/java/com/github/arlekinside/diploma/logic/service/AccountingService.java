@@ -23,11 +23,11 @@ public interface AccountingService {
     long handleProcessMoneyFlow(List<? extends MoneyFlow> moneyFlowList);
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void handleSavingDeposit(Saving saving);
+    boolean handleSavingDeposit(Saving saving);
 
     void handleSavingCreated(Saving saving);
 
-    long handleProcessSavings(List<Saving> savingList);
+    int handleProcessSavings(List<Saving> savingList);
 
     @Transactional(propagation = Propagation.REQUIRED)
     void handleSavingDeleted(Saving saving);

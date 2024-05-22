@@ -18,7 +18,10 @@ const Params = {
             }
         },
         savings: `${backend}/savings`,
-        scheduler: `${backend}/scheduler`
+        scheduler: {
+            base: `${backend}/scheduler`,
+            logs: `${backend}/scheduler/log`
+        },
     },
     path: {
         logout: `${backend}/logout`,

@@ -1,7 +1,7 @@
 package com.github.arlekinside.diploma.ws.config.security.user;
 
 import com.github.arlekinside.diploma.data.entity.User;
-import com.github.arlekinside.diploma.data.SecurityRoles;
+import com.github.arlekinside.diploma.data.enums.SecurityRoles;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
