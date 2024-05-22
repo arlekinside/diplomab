@@ -6,6 +6,8 @@ import {useNotification} from "../../components/NotificationProvider";
 import Params from "../../Params";
 import {RecurringCycleEnum} from "../../dto/RecurringCycleEnum";
 import MoneyFlowDTO from "../../dto/MoneyFlowDTO";
+import ChipLabel from "../../components/text/ChipLabel";
+import ErrorDTO from "../../dto/ErrorDTO";
 
 interface IFormInput {
     name: string
@@ -49,9 +51,10 @@ function NewMoneyFlowPage() {
             },
             redirect: 'error',
             body: JSON.stringify(dto)
-        }).then(res => {
+        }).then(async res => {
             if (!res.ok) {
-                showNotification(`Got error response ${res.status} from server`, 'warning');
+                let json : ErrorDTO = await res.json();
+                showNotification(`Got error response ${res.status} - ${json.message}`, 'warning');
                 return;
             }
             showNotification('MoneyFlow created', 'success')
@@ -62,7 +65,7 @@ function NewMoneyFlowPage() {
 
     return (
         <Page>
-            <Label>MoneyFlow - NEW</Label>
+            <ChipLabel>MoneyFlow - NEW</ChipLabel>
             <div style={{
                 display: "flex",
                 flexDirection: "column",

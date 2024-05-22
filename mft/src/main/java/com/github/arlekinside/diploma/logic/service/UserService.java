@@ -10,4 +10,6 @@ public interface UserService {
     User registerAdmin(String username, String password) throws UserExistsException;
 
     void save(User user);
+
+    User read(Long id);
 }

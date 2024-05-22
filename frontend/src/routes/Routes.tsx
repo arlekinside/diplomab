@@ -9,7 +9,7 @@ import SavingPage from "../pages/saving/SavingPage";
 
 const Routes = {
     '/' : () => <DashboardPage />,
-    '/dashboard': () => <DashboardPage />,
+    '/dsb': () => <DashboardPage />,
     '/login' : () => <LoginPage />,
     '/register' : () => <RegisterPage />,
     '/mfun' : () => <NewMoneyFlowPage />,

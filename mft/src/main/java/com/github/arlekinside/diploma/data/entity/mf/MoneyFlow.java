@@ -11,7 +11,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
-import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 
 @Entity
@@ -52,5 +51,7 @@ public abstract class MoneyFlow implements UserAware {
     private void postLoad() {
         this.dateCreated = timeData.getDateCreated().format(DateTimeFormatter.ofPattern("MMM dd"));
     }
+
+    public abstract boolean isExpense();
 
 }

@@ -3,17 +3,25 @@ package com.github.arlekinside.diploma.ws.controller.mf;
 import com.github.arlekinside.diploma.data.entity.mf.MoneyFlow;
 import com.github.arlekinside.diploma.data.repo.mf.MoneyFlowRepo;
 import com.github.arlekinside.diploma.logic.exception.NotFoundException;
+import com.github.arlekinside.diploma.logic.service.AccountingService;
 import com.github.arlekinside.diploma.ws.controller.AbstractCrudController;
-import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public abstract class MoneyFlowController<T extends MoneyFlow> extends AbstractCrudController<T> {
 
     protected final MoneyFlowRepo<T> moneyFlowRepo;
+    protected final AccountingService accountingService;
+
+    public MoneyFlowController(MoneyFlowRepo<T> moneyFlowRepo, AccountingService accountingService) {
+        this.moneyFlowRepo = moneyFlowRepo;
+        this.accountingService = accountingService;
+    }
+
 
     @Override
     public T create(Authentication principal, T t) {
@@ -35,11 +43,13 @@ public abstract class MoneyFlowController<T extends MoneyFlow> extends AbstractC
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public T update(Authentication auth, Long id, T t) {
         throw new NotFoundException(null, null);
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void delete(Authentication auth, Long id) {
         moneyFlowRepo.deleteByIdAndUser(id, getUser(auth));
     }

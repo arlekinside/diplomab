@@ -4,4 +4,9 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class RecurringIncome extends RecurringMoneyFlow {
+
+    @Override
+    public boolean isExpense() {
+        return false;
+    }
 }

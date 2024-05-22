@@ -6,6 +6,8 @@ import Params from "../../Params";
 import Label from "../../components/text/Label";
 import {IconButton, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import ChipLabel from "../../components/text/ChipLabel";
+import ErrorDTO from "../../dto/ErrorDTO";
 
 function RecurringMoneyFlowPage() {
     const {showNotification} = useNotification();
@@ -37,9 +39,10 @@ function RecurringMoneyFlowPage() {
                 'Content-Type': 'application/json;charset=UTF-8'
             },
             redirect: 'error',
-        }).then(res => {
+        }).then(async res => {
             if (!res.ok) {
-                showNotification(`Got error response ${res.status} from server`, 'warning');
+                let json : ErrorDTO = await res.json();
+                showNotification(`Got error response ${res.status} - ${json.message}`, 'warning');
                 throw new Error();
             }
             return res.json();
@@ -50,9 +53,10 @@ function RecurringMoneyFlowPage() {
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
                 redirect: 'error',
-            }).then(res => {
+            }).then(async res => {
                 if (!res.ok) {
-                    showNotification(`Got error response ${res.status} from server`, 'warning');
+                    let json : ErrorDTO = await res.json();
+                    showNotification(`Got error response ${res.status} - ${json.message}`, 'warning');
                     throw new Error();
                 }
                 return res.json();
@@ -76,7 +80,7 @@ function RecurringMoneyFlowPage() {
                     margin: '0 5px 0 10px',
                     minWidth: '500px'
                 }}>
-                    <Label>Incomes</Label>
+                    <ChipLabel>Incomes</ChipLabel>
                     <Table sx={{width: "40%", minWidth: "300px", margin: "30px"}}>
                         <TableHead>
                             <TableRow>
@@ -111,7 +115,7 @@ function RecurringMoneyFlowPage() {
                     margin: '0 5px 0 10px',
                     minWidth: '500px'
                 }}>
-                    <Label>Expenses</Label>
+                    <ChipLabel>Expenses</ChipLabel>
                     <Table sx={{width: "40%", minWidth: "300px", margin: "30px"}}>
                         <TableHead>
                             <TableRow>

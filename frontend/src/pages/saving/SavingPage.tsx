@@ -5,6 +5,7 @@ import Params from "../../Params";
 import {Button, Card, CardActions, CardContent, IconButton, Typography} from "@mui/material";
 import SavingDTO from "../../dto/SavingDTO";
 import ClearIcon from "@mui/icons-material/Clear";
+import ErrorDTO from "../../dto/ErrorDTO";
 
 function SavingPage() {
 
@@ -27,17 +28,18 @@ function SavingPage() {
     }
 
     const doFinish = (saving: SavingDTO) => {
-        saving.finished = true;
         fetch(`${Params.fetch.savings}/${saving.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;utf-8'
             },
-            body: JSON.stringify(saving)
+            body: JSON.stringify({
+                "finished": true
+            })
         }).then(res => {
             if (!res.ok) {
                 showNotification('Error performing update operation', 'warning');
-                return;
+                throw new Error();
             }
             let newSavings = savings?.map(sav => {
                 if (sav.id == saving.id) {
@@ -58,9 +60,10 @@ function SavingPage() {
                 'Content-Type': 'application/json;charset=UTF-8'
             },
             redirect: 'error',
-        }).then(res => {
+        }).then(async res => {
             if (!res.ok) {
-                showNotification(`Got error response ${res.status} from server`, 'warning');
+                let json : ErrorDTO = await res.json();
+                showNotification(`Got error response ${res.status} - ${json.message}`, 'warning');
                 throw new Error();
             }
             return res.json();
@@ -84,7 +87,7 @@ function SavingPage() {
                     <Card sx={{minWidth: 275}} style={{margin: '10px'}}>
                         <CardContent>
                             <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-                                {sav.finished ? "Finished" : sav.monthlyPercent + "%"}
+                                {sav.finished ? "Finished" : sav.monthlyPercent + "% - Monthly Deposit"}
                             </Typography>
                             <Typography variant="h5" component="div">
                                 {sav.name}

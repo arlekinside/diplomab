@@ -2,24 +2,37 @@ package com.github.arlekinside.diploma.ws.controller;
 
 import com.github.arlekinside.diploma.data.entity.Saving;
 import com.github.arlekinside.diploma.data.repo.SavingRepo;
+import com.github.arlekinside.diploma.logic.exception.BadRequestException;
 import com.github.arlekinside.diploma.logic.exception.NotFoundException;
-import lombok.RequiredArgsConstructor;
+import com.github.arlekinside.diploma.logic.service.AccountingService;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/savings")
-@RequiredArgsConstructor
 public class SavingController extends AbstractCrudController<Saving>{
 
     private final SavingRepo savingRepo;
+    private final AccountingService accountingService;
+
+    protected SavingController(SavingRepo savingRepo, AccountingService accountingService) {
+        this.savingRepo = savingRepo;
+        this.accountingService = accountingService;
+    }
+
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = {BadRequestException.class})
     public Saving create(Authentication principal, Saving saving) {
         saving.setUser(getUser(principal));
-        return savingRepo.save(saving);
+        var sav = savingRepo.save(saving);
+        accountingService.handleSavingCreated(saving);
+        return sav;
     }
 
     @Override
@@ -37,16 +50,17 @@ public class SavingController extends AbstractCrudController<Saving>{
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Saving update(Authentication auth, Long id, Saving saving) {
         var existing = read(auth, id);
         existing.setFinished(saving.getFinished());
-        existing.setUser(getUser(auth));
-        return savingRepo.save(saving);
+        return savingRepo.save(existing);
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = {BadRequestException.class})
     public void delete(Authentication auth, Long id) {
-        //TODO BK get the money back to budget
+        accountingService.handleSavingDeleted(read(auth, id));
         savingRepo.deleteByIdAndUser(id, getUser(auth));
     }
 }

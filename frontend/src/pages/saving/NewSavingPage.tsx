@@ -5,6 +5,8 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useNotification} from "../../components/NotificationProvider";
 import SavingDTO from "../../dto/SavingDTO";
 import Params from "../../Params";
+import ChipLabel from "../../components/text/ChipLabel";
+import ErrorDTO from "../../dto/ErrorDTO";
 
 interface IFormInput {
     name: string
@@ -39,9 +41,10 @@ function NewSavingPage() {
             },
             redirect: 'error',
             body: JSON.stringify(dto)
-        }).then(res => {
+        }).then(async res => {
             if (!res.ok) {
-                showNotification(`Got error response ${res.status} from server`, 'warning');
+                let json : ErrorDTO = await res.json();
+                showNotification(`Got error response ${res.status} - ${json.message}`, 'warning');
                 return;
             }
             showNotification('Saving created. Moving to savings page', 'success')
@@ -53,7 +56,7 @@ function NewSavingPage() {
 
     return (
         <Page>
-            <Label>Saving - NEW</Label>
+            <ChipLabel>Saving - NEW</ChipLabel>
             <div style={{
                 display: "flex",
                 flexDirection: "column",

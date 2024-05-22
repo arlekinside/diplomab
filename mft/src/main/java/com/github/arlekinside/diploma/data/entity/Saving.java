@@ -30,7 +30,7 @@ public class Saving implements UserAware {
     private String name;
 
     @Embedded
-    private Money money;
+    private Money money = new Money();
 
     @Valid
     @NotNull(message = "Target is obligatory")
@@ -39,7 +39,7 @@ public class Saving implements UserAware {
             @AttributeOverride(name = "amount", column = @Column(name = "target_amount")),
             @AttributeOverride(name = "currency", column = @Column(name = "target_currency"))
     })
-    private Money target;
+    private Money target = new Money();
 
     @Min(value = 1, message = "Percents should be between 1 and 100")
     @Max(value = 100, message = "Percents should be between 1 and 100")
@@ -50,7 +50,7 @@ public class Saving implements UserAware {
     private TimeData timeData;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
 

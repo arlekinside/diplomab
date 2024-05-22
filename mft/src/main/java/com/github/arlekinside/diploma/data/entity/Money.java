@@ -31,4 +31,14 @@ public final class Money {
     @NotNull(message = "Currency cannot be empty")
     private Currency currency;
 
+    public Money increment(long amount) {
+        this.amount += amount;
+        return this;
+    }
+
+    public Money decremennt(long amount) {
+        this.amount -= amount;
+        return this;
+    }
+
 }

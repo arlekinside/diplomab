@@ -46,9 +46,9 @@ function Header() {
                     <HeaderPopupMenuItem href={Params.path.savings.n}>New</HeaderPopupMenuItem>
                     <HeaderPopupMenuItem href={Params.path.savings.page}>View</HeaderPopupMenuItem>
                 </HeaderPopupMenu>
-                <HeaderPopupMenu label='Profile'>
-                    <HeaderPopupMenuItem href={Params.path.login}>Notifications</HeaderPopupMenuItem>
-                </HeaderPopupMenu>
+                {/*<HeaderPopupMenu label='Profile'>*/}
+                {/*    <HeaderPopupMenuItem href={Params.path.login}>Notifications</HeaderPopupMenuItem>*/}
+                {/*</HeaderPopupMenu>*/}
             </div>
             <div style={{
                 display: 'flex',

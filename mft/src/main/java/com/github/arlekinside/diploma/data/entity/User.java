@@ -43,9 +43,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     private SecurityRoles role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, orphanRemoval = true)
     @ToString.Exclude
     private List<Saving> savings = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REFRESH, optional = false, orphanRemoval = true)
+    @ToString.Exclude
+    @JsonIgnore
+    private Budget budget;
 
     @Embedded
     @ToString.Exclude

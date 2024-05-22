@@ -5,6 +5,7 @@ const Params = {
         backend: backend,
         login: `${backend}/users/login`,
         register: `${backend}/users/register`,
+        dashboard: `${backend}/dashboard`,
         user: {
             current: `${backend}/users`
         },
@@ -31,12 +32,12 @@ const Params = {
             n: '/sun',
             page: '/su'
         },
-        dashboard: '/dashboard'
+        dashboard: '/'
     },
     colors: {
         primary: '#16348C', //FFD700 //16348C
         secondary: '#E16941',
-        thirdly: '#7894EA',
+        thirdly: '#7894EA', //#7894EA
         background: '#ffffff',
         darkText: '#000000',
         lightText: '#ffffff',

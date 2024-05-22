@@ -1,8 +1,11 @@
 package com.github.arlekinside.diploma.logic.service;
 
 import com.github.arlekinside.diploma.data.SecurityRoles;
+import com.github.arlekinside.diploma.data.entity.Budget;
 import com.github.arlekinside.diploma.data.entity.User;
+import com.github.arlekinside.diploma.data.repo.BudgetRepo;
 import com.github.arlekinside.diploma.data.repo.UserRepo;
+import com.github.arlekinside.diploma.logic.exception.NotFoundException;
 import com.github.arlekinside.diploma.logic.exception.UserExistsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,10 +15,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
+    private final BudgetRepo budgetRepo;
 
-    public UserServiceImpl(UserRepo UserRepo, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepo UserRepo, PasswordEncoder passwordEncoder, BudgetRepo budgetRepo) {
         this.userRepo = UserRepo;
         this.passwordEncoder = passwordEncoder;
+        this.budgetRepo = budgetRepo;
     }
 
     @Override
@@ -40,11 +45,22 @@ public class UserServiceImpl implements UserService {
                 .role(securityRole)
                 .build();
 
-        return userRepo.save(user);
+        user = userRepo.save(user);
+
+        var budget = new Budget();
+        budget.setUser(user);
+        budgetRepo.save(budget);
+
+        return user;
     }
 
     @Override
     public void save(User user) {
         userRepo.save(user);
+    }
+
+    @Override
+    public User read(Long id) {
+        return userRepo.findById(id).orElseThrow(() -> new NotFoundException(id, User.class));
     }
 }
