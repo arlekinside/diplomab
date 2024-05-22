@@ -1,5 +1,11 @@
-import {useEffect, useState} from "react";
+import React from "react";
 import Page from "../components/layout/Page";
+import {useNotification} from "../components/NotificationProvider";
+import {Button} from "@mui/material";
+import {SchedulerTypeEnum} from "../dto/SchedulerTypeEnum";
+import Params from "../Params";
+import ChipLabel from "../components/text/ChipLabel";
+import SchedulerDTO from "../dto/SchedulerDTO";
 
 interface Data {
     correctness: number;
@@ -9,60 +15,52 @@ interface Data {
 
 function AdminPage() {
 
-    const [fetched, setFetched] = useState<boolean>(false);
-    const [username, setUsername] = useState<string>('SQLver');
-    const [data, setData] = useState<Data>({
-        correctness: 100,
-        usersCount: 9999,
-        health: true
-    });
+    const {showNotification} = useNotification();
 
-    useEffect(() => {
-        if (!fetched) {
-            const fetchData = async () => {
-                try {
-                    const healthResponse = await fetch("/health");
-                    let health = true
-                    if (!healthResponse.ok) {
-                        health = false
-                    }
-
-                    const statsResponse = await fetch("/history/stats");
-                    let correctness = 0;
-                    if (statsResponse.ok) {
-                        correctness = (await statsResponse.json()).correctness;
-                    }
-
-                    const usersResponse = await fetch("/users/stats");
-                    let usersCount = 0;
-                    let username = 'SQLver';
-                    if (usersResponse.ok) {
-                        let usersData = await usersResponse.json();
-                        usersCount = usersData.usersCount;
-                        username = usersData.username;
-                    }
-
-                    setData({
-                        correctness: correctness,
-                        usersCount: usersCount,
-                        health: health,
-                    });
-
-                    setUsername(username);
-                } catch (error) {
-                    // Handle errors here
-                    console.error("Error fetching data:", error);
-                }
-            };
-
-            fetchData();
-            setFetched(true);
-        }
-    }, [fetched]);
+    const trigger = (type: SchedulerTypeEnum) => {
+        let body : SchedulerDTO = {
+            type: type
+        };
+        fetch(Params.fetch.scheduler, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            },
+            redirect: "error",
+            body: JSON.stringify(body)
+        }).then(async res => {
+            if (!res.ok) {
+                let json = await res.json();
+                showNotification(`Got error response ${res.status} - ${json.message}`, 'warning');
+                throw new Error();
+            }
+            showNotification(`Job ${type} triggered`, 'info');
+            return;
+        }).catch(e => {
+            showNotification(`Error connecting to the server`, 'error');
+        });
+    }
 
     return (
         <Page admin>
-            <div/>
+            <ChipLabel>
+                Admin page
+            </ChipLabel>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: '100%'
+            }}>
+                <Button size={"large"} color='secondary' variant='contained' style={{margin: '30px'}}
+                        onClick={() => trigger(SchedulerTypeEnum.MF_DAILY)}>Trigger MoneyFlow Daily</Button>
+                <Button size={"large"} color='secondary' variant='contained' style={{margin: '30px'}}
+                        onClick={() => trigger(SchedulerTypeEnum.MF_MONTHLY)}>Trigger MoneyFlow Monthly</Button>
+                <Button size={"large"} color='secondary' variant='contained' style={{margin: '30px'}}
+                        onClick={() => trigger(SchedulerTypeEnum.SAVING_MONTHLY)}>Trigger Savings Monthly</Button>
+            </div>
         </Page>
     );
 }

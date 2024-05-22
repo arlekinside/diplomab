@@ -5,7 +5,6 @@ import com.github.arlekinside.diploma.data.repo.mf.MoneyFlowRepo;
 import com.github.arlekinside.diploma.logic.exception.NotFoundException;
 import com.github.arlekinside.diploma.logic.service.AccountingService;
 import com.github.arlekinside.diploma.ws.controller.AbstractCrudController;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

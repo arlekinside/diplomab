@@ -1,9 +1,15 @@
 package com.github.arlekinside.diploma.data.repo.mf;
 
+import com.github.arlekinside.diploma.data.RecurringCycle;
+import com.github.arlekinside.diploma.data.entity.mf.RecurringExpense;
 import com.github.arlekinside.diploma.data.entity.mf.RecurringIncome;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface RecurringIncomeRepo extends MoneyFlowRepo<RecurringIncome> {
+
+    List<RecurringIncome> findAllByCycle(RecurringCycle cycle);
 
 }

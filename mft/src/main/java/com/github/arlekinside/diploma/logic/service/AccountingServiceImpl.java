@@ -57,6 +57,12 @@ public class AccountingServiceImpl implements AccountingService {
     }
 
     @Override
+    public long handleProcessMoneyFlow(List<? extends MoneyFlow> moneyFlowList) {
+        moneyFlowList.forEach(this::handleMoneyFlowCreated);
+        return moneyFlowList.size();
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void handleSavingDeposit(Saving saving) {
         if (saving.getFinished() == Boolean.TRUE) {
@@ -119,6 +125,12 @@ public class AccountingServiceImpl implements AccountingService {
 
         updateBudget(-depositAmount, budget, user);
         savingRepo.save(saving);
+    }
+
+    @Override
+    public long handleProcessSavings(List<Saving> savingList) {
+        savingList.forEach(this::handleSavingDeposit);
+        return savingList.size();
     }
 
     @Override

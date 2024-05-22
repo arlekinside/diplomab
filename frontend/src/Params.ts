@@ -17,7 +17,8 @@ const Params = {
                 expenses: `${backend}/mf/recurring/expenses`,
             }
         },
-        savings: '/savings'
+        savings: `${backend}/savings`,
+        scheduler: `${backend}/scheduler`
     },
     path: {
         logout: `${backend}/logout`,

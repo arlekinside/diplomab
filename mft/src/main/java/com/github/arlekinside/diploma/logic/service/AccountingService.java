@@ -7,6 +7,8 @@ import com.github.arlekinside.diploma.ws.dto.DashboardDTO;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface AccountingService {
 
 
@@ -18,10 +20,14 @@ public interface AccountingService {
     @Transactional(propagation = Propagation.REQUIRED)
     void handleMoneyFlowDeleted(MoneyFlow moneyFlow);
 
+    long handleProcessMoneyFlow(List<? extends MoneyFlow> moneyFlowList);
+
     @Transactional(propagation = Propagation.REQUIRED)
     void handleSavingDeposit(Saving saving);
 
     void handleSavingCreated(Saving saving);
+
+    long handleProcessSavings(List<Saving> savingList);
 
     @Transactional(propagation = Propagation.REQUIRED)
     void handleSavingDeleted(Saving saving);

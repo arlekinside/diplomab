@@ -42,7 +42,7 @@ public class RequestSecurityConfig {
                 .authorizeHttpRequests( //Admin
                         auth -> auth.requestMatchers(
                                 HttpMethod.GET,
-                                "/admin/**", "/adm/**"
+                                "/admin/**", "/adm/**", "/scheduler/**"
                         ).hasAnyRole(ADMIN.name())
                 )
                 .authorizeHttpRequests( //API

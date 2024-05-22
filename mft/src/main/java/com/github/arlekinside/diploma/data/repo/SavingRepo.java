@@ -12,4 +12,7 @@ public interface SavingRepo extends UserJpaRepository<Saving, Long> {
 
     @Query("select s from Saving s where s.finished is not true and s.user = :user")
     List<Saving> findAllActiveByUser(User user);
+
+    @Query("select s from Saving s where s.finished is not true")
+    List<Saving> findAllActive();
 }
