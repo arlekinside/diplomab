@@ -4,6 +4,7 @@ import com.github.arlekinside.diploma.logic.exception.BadRequestException;
 import com.github.arlekinside.diploma.logic.exception.NotFoundException;
 import com.github.arlekinside.diploma.ws.dto.ErrorDTO;
 import com.github.arlekinside.diploma.ws.dto.NotFoundDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
+@Slf4j
 public class ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
@@ -60,5 +62,16 @@ public class ResponseEntityExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(res);
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public ResponseEntity<ErrorDTO> handleBadRequestException(Throwable t) {
+
+        var res = new ErrorDTO();
+        res.setMessage("Internal service error");
+
+        log.error("Caught an error", t);
+
+        return ResponseEntity.internalServerError().build();
     }
 }

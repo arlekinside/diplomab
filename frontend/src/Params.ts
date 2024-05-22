@@ -32,7 +32,9 @@ const Params = {
             n: '/sun',
             page: '/su'
         },
-        dashboard: '/'
+        dashboard: '/dsb',
+        admin: '/adm',
+        landing: '/'
     },
     colors: {
         primary: '#16348C', //FFD700 //16348C

@@ -19,11 +19,12 @@ public interface AccountingService {
     void handleMoneyFlowDeleted(MoneyFlow moneyFlow);
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void handleSavingDeposit(Saving saving, boolean create);
+    void handleSavingDeposit(Saving saving);
 
     void handleSavingCreated(Saving saving);
 
     @Transactional(propagation = Propagation.REQUIRED)
     void handleSavingDeleted(Saving saving);
 
+    DashboardDTO buildDashboard(Long userId);
 }

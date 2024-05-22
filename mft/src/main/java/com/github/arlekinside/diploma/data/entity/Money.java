@@ -12,9 +12,12 @@ import java.util.Currency;
 
 @Embeddable
 @Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public final class Money {
+
+    public Money() {
+        this(0, "USD");
+    }
 
     public Money(long amount) {
         this(amount, "USD");

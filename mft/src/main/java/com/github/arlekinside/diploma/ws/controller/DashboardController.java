@@ -22,13 +22,12 @@ public class DashboardController {
     @GetMapping
     public DashboardDTO dashboard(Authentication auth) {
         var user = Utils.getUser(auth);
-        user = userService.read(user.getId()); //refresh entity
 
-        var res = new DashboardDTO();
-        res.setBudget(user.getBudget().getMoney());
+//        var res = new DashboardDTO();
+//        res.setBudget(user.getBudget().getMoney());
 
-        return res;
-
+        return accountingService.buildDashboard(user.getId());
+//        return res;
     }
 
 }

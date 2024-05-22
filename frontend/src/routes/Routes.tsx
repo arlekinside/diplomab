@@ -6,9 +6,11 @@ import OneTimeMoneyFlowPage from "../pages/mf/OneTimeMoneyFlowPage";
 import RecurringMoneyFlowPage from "../pages/mf/RecurringMoneyFlowPage";
 import NewSavingPage from "../pages/saving/NewSavingPage";
 import SavingPage from "../pages/saving/SavingPage";
+import AdminPage from "../pages/AdminPage";
+import LandingPage from "../pages/LandingPage";
 
 const Routes = {
-    '/' : () => <DashboardPage />,
+    '/' : () => <LandingPage />,
     '/dsb': () => <DashboardPage />,
     '/login' : () => <LoginPage />,
     '/register' : () => <RegisterPage />,
@@ -16,7 +18,8 @@ const Routes = {
     '/mfuo' : () => <OneTimeMoneyFlowPage />,
     '/mfur' : () => <RecurringMoneyFlowPage />,
     '/sun' : () => <NewSavingPage />,
-    '/su' : () => <SavingPage />
+    '/su' : () => <SavingPage />,
+    '/adm': () => <AdminPage />
 }
 
 export default Routes;

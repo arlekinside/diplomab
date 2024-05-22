@@ -34,7 +34,7 @@ public class RequestSecurityConfig {
                 .authorizeHttpRequests( //UI
                         auth -> auth.requestMatchers(
                                 HttpMethod.GET,
-                                "/", "/dsb",
+                                "/", "/dsb", "/landing",
                                 "/mfun", "/mfuo", "/mfur",
                                 "/sun", "/su"
                         ).hasAnyRole(USER.name(), ADMIN.name())
@@ -42,7 +42,7 @@ public class RequestSecurityConfig {
                 .authorizeHttpRequests( //Admin
                         auth -> auth.requestMatchers(
                                 HttpMethod.GET,
-                                "/admin/**"
+                                "/admin/**", "/adm/**"
                         ).hasAnyRole(ADMIN.name())
                 )
                 .authorizeHttpRequests( //API
