@@ -1,6 +1,5 @@
 package com.github.arlekinside.diploma.logic.service;
 
-import com.github.arlekinside.diploma.data.entity.Budget;
 import com.github.arlekinside.diploma.data.entity.Saving;
 import com.github.arlekinside.diploma.data.entity.User;
 import com.github.arlekinside.diploma.data.entity.mf.MoneyFlow;
@@ -42,7 +41,7 @@ public class AccountingServiceImpl implements AccountingService {
             mfAmount *= -1;
         }
 
-        updateBudget(mfAmount, moneyFlow.getUser().getBudget(), moneyFlow.getUser());
+        updateBudget(mfAmount, moneyFlow.getUser());
     }
 
     @Override
@@ -53,7 +52,7 @@ public class AccountingServiceImpl implements AccountingService {
             mfAmount *= -1;
         }
 
-        updateBudget(mfAmount, moneyFlow.getUser().getBudget(), moneyFlow.getUser());
+        updateBudget(mfAmount, moneyFlow.getUser());
     }
 
     @Override
@@ -94,7 +93,7 @@ public class AccountingServiceImpl implements AccountingService {
             saving.setFinished(true);
         }
 
-        updateBudget(-depositAmount, budget, user);
+        updateBudget(-depositAmount, user);
         savingRepo.save(saving);
         return true;
     }
@@ -124,7 +123,7 @@ public class AccountingServiceImpl implements AccountingService {
             saving.setFinished(true);
         }
 
-        updateBudget(-depositAmount, budget, user);
+        updateBudget(-depositAmount, user);
         savingRepo.save(saving);
     }
 
@@ -140,7 +139,7 @@ public class AccountingServiceImpl implements AccountingService {
         var user = saving.getUser();
         var budget = user.getBudget();
 
-        updateBudget(backAmount, budget, user);
+        updateBudget(backAmount, user);
     }
 
     @Override
@@ -162,7 +161,7 @@ public class AccountingServiceImpl implements AccountingService {
                 .increment(calculateRecurringMFMonthSum(moneyData.getRecurringExpenses(), YearMonth.now()));
 
         res.getHhRate()
-                .increment(res.getMonthIncome().getAmount() / YearMonth.now().lengthOfMonth());
+                .increment(res.getMonthIncome().getAmount() / (22 * 8)); //YearMonth.now().lengthOfMonth()
 
         //Current month
         res.getCurrentMonth().setIncomes(res.getMonthIncome());
@@ -181,17 +180,17 @@ public class AccountingServiceImpl implements AccountingService {
                 .increment(calculateRecurringMFMonthSum(moneyData.getRecurringExpenses(), YearMonth.now().minusMonths(1)));
 
         res.getLastMonth().getHh()
-                .increment(res.getLastMonth().getIncomes().getAmount() / YearMonth.now().lengthOfMonth());
+                .increment(res.getLastMonth().getIncomes().getAmount() / (22 * 8));
 
         //Next month
         res.getNextMonth().getIncomes()
-                .increment((res.getLastMonth().getIncomes().getAmount() + res.getCurrentMonth().getIncomes().getAmount() * 2) / 3);
+                .increment((res.getLastMonth().getIncomes().getAmount() + res.getCurrentMonth().getIncomes().getAmount() * 5) / 6);
 
         res.getNextMonth().getExpenses()
-                .increment((res.getLastMonth().getExpenses().getAmount() + res.getCurrentMonth().getExpenses().getAmount() * 2) / 3);
+                .increment((res.getLastMonth().getExpenses().getAmount() + res.getCurrentMonth().getExpenses().getAmount() * 5) / 6);
 
         res.getNextMonth().getHh()
-                .increment((res.getLastMonth().getHh().getAmount() + res.getCurrentMonth().getHh().getAmount() * 2) / 3);
+                .increment((res.getLastMonth().getHh().getAmount() + res.getCurrentMonth().getHh().getAmount() * 5) / 6);
 
         //Savings
         res.getSavingsTotal()
@@ -234,7 +233,8 @@ public class AccountingServiceImpl implements AccountingService {
                 !dateTime.toLocalDate().isAfter(yearMonth.atEndOfMonth());
     }
 
-    private void updateBudget(Long amount, Budget budget, User user) {
+    private void updateBudget(Long amount, User user) {
+        var budget = budgetRepo.findByUser(user);
         budget.setUser(user);
         budget.getMoney().increment(amount);
 

@@ -33,6 +33,7 @@ build/
 .vscode/
 
 ### Project ###
+/Коцюба_Богдан_ІТ-04_Документація
 /extract.sh
 /code.txt
 **/node_modules/
