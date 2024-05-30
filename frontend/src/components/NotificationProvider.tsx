@@ -33,7 +33,7 @@ function NotificationProvider (props: { children: any }) {
             />
         </NotificationContext.Provider>
     );
-};
+}
 
 export const useNotification = (): INotificationContextType => {
 

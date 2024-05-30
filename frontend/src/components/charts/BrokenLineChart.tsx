@@ -61,6 +61,6 @@ function BrokenLineChart(props: {data: ChartData<'line'>}) {
             <Line data={props.data} options={options} />
         </div>
     );
-};
+}
 
 export default BrokenLineChart;
