@@ -45,7 +45,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, orphanRemoval = true)
     @ToString.Exclude
-    private List<Saving> savings = new ArrayList<>();
+    private final List<Saving> savings = new ArrayList<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.REFRESH, optional = false, orphanRemoval = true)
     @ToString.Exclude
@@ -54,7 +54,7 @@ public class User {
 
     @Embedded
     @ToString.Exclude
-    private MoneyData moneyData = new MoneyData();
+    private final MoneyData moneyData = new MoneyData();
 
     @Override
     public final boolean equals(Object o) {

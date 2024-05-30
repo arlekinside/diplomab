@@ -4,7 +4,10 @@ import com.github.arlekinside.diploma.data.entity.mf.Expense;
 import com.github.arlekinside.diploma.data.entity.mf.Income;
 import com.github.arlekinside.diploma.data.entity.mf.RecurringExpense;
 import com.github.arlekinside.diploma.data.entity.mf.RecurringIncome;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 
 import java.util.ArrayList;

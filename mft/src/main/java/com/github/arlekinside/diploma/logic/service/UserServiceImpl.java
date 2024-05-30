@@ -1,8 +1,8 @@
 package com.github.arlekinside.diploma.logic.service;
 
-import com.github.arlekinside.diploma.data.enums.SecurityRoles;
 import com.github.arlekinside.diploma.data.entity.Budget;
 import com.github.arlekinside.diploma.data.entity.User;
+import com.github.arlekinside.diploma.data.enums.SecurityRoles;
 import com.github.arlekinside.diploma.data.repo.BudgetRepo;
 import com.github.arlekinside.diploma.data.repo.UserRepo;
 import com.github.arlekinside.diploma.logic.exception.NotFoundException;

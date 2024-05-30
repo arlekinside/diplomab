@@ -1,7 +1,6 @@
 package com.github.arlekinside.diploma.scheduler;
 
 import com.github.arlekinside.diploma.data.entity.SchedulerLog;
-import com.github.arlekinside.diploma.data.enums.RecurringCycle;
 import com.github.arlekinside.diploma.data.enums.SchedulerType;
 import com.github.arlekinside.diploma.data.repo.SavingRepo;
 import com.github.arlekinside.diploma.data.repo.SchedulerLogRepo;
